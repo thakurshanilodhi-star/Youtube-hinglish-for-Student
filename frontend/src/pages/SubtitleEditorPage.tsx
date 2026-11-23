@@ -53,7 +53,13 @@ export default function SubtitleEditorPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <button onClick={() => window.history.back()} className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1 mb-2">
+          <button
+            onClick={() => {
+              setCurrentTime(0);
+              window.history.back();
+            }}
+            className="text-sm text-muted-foreground hover:text-foreground inline-flex items-center gap-1 mb-2"
+          >
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
           <h1 className="text-2xl font-bold">{job.title || "Subtitle Editor"}</h1>
