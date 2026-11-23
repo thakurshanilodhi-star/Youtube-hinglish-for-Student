@@ -4,7 +4,6 @@ import {
   Home,
   Film,
   Radio,
-  FileText,
   History,
   Settings,
   LogOut,
