@@ -1,0 +1,43 @@
+# FastAPI & Server
+fastapi==0.111.0
+uvicorn[standard]==0.30.0
+python-multipart==0.0.9
+websockets==12.1
+
+# Database
+sqlalchemy[asyncio]==2.0.30
+asyncpg==0.29.0
+alembic==1.13.1
+
+# Redis
+redis==5.0.4
+
+# AI / ML
+openai-whisper==20231117
+openai==1.30.0
+google-generativeai==0.5.4
+google-cloud-texttospeech==2.16.3
+pyannote.audio==3.1.1
+torch==2.3.0
+torchaudio==2.3.0
+pydub==0.25.1
+
+# Auth & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# YouTube
+yt-dlp==2024.5.27
+
+# HTTP
+requests==2.31.0
+aiohttp==3.9.5
+
+# Config
+pydantic-settings==2.2.1
+python-dotenv==1.0.1
+
+# Testing
+pytest==8.2.0
+pytest-asyncio==0.23.7
+httpx==0.27.0
