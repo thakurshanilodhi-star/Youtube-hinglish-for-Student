@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { Play, Pause, Volume2, VolumeX, Maximize } from "lucide-react";
 
@@ -16,30 +16,60 @@ export default function VideoPlayer({
   showSubtitles = true,
 }: VideoPlayerProps) {
   const playerRef = useRef<ReactPlayer>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  const togglePlay = () => setPlaying(!playing);
-  const toggleMute = () => setMuted(!muted);
+  const togglePlay = () => {
+    const nextPlaying = !playing;
+    setPlaying(nextPlaying);
+    if (audioRef.current) {
+      if (nextPlaying) {
+        void audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  };
+
+  const toggleMute = () => {
+    const nextMuted = !muted;
+    setMuted(nextMuted);
+    if (audioRef.current) {
+      audioRef.current.muted = nextMuted;
+    }
+  };
 
   return (
     <div className="relative bg-black rounded-xl overflow-hidden aspect-video group">
+      {dubbedAudioUrl && (
+        <audio ref={audioRef} src={dubbedAudioUrl} muted={muted} />
+      )}
       <ReactPlayer
         ref={playerRef}
         url={url}
         playing={playing}
-        muted={muted}
+        muted={Boolean(dubbedAudioUrl) || muted}
         width="100%"
         height="100%"
         onProgress={({ played }) => setProgress(played * 100)}
         onDuration={setDuration}
         config={{
           file: {
-            tracks: showSubtitles && subtitlesUrl
-              ? [{ kind: "subtitles", src: subtitlesUrl, srcLang: "hi", default: true }]
-              : [],
+            tracks:
+              showSubtitles && subtitlesUrl
+                ? [
+                    {
+                      kind: "subtitles",
+                      src: subtitlesUrl,
+                      srcLang: "hi",
+                      label: "Hinglish",
+                      default: true,
+                    },
+                  ]
+                : [],
           },
         }}
       />
